@@ -1,0 +1,57 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Tue Feb 28 22:08:54 2017
+
+@author: elizabethsizemore
+"""
+
+from random import random
+from numpy import arange
+from pylab import plot, xlabel, ylabel, show
+
+Bi213= 10000 #number of atoms to start
+Tl209=0
+Pb209=0
+Bi209=0
+
+tmax=20000 #total time seconds
+
+dt=1 #time step
+
+T=45.6*60 #half life in seconds of Bi213
+
+p= 1-2**(-dt/T) #probability that any particlar atom has decayed
+
+#list of plot points
+tpoints=arange(0.0, tmax,dt)
+Bi213points = []
+Tl209points = []
+Pb209points = []
+Bi209points = []
+
+
+#main loop
+for t in tpoints:
+    Bi213points.append(Bi213)
+    Tl209points.append(Tl209)
+    Pb209points.append(Pb209)
+    Bi209points.append(Bi209)
+    
+    #calculate #of atoms that decay
+    decay=0
+    for i in range (Tl209):
+        if random()<p:
+            decay+=1
+        Tl209 -= decay
+        Pb209+= decay
+        
+        
+#graph
+plot(tpoints,Bi213points)
+plot(tpoints, Tl209points)
+plot(tpoints, Pb209points)
+plot(tpoints, Bi209points)
+xlabel('Time')
+ylabel('Number of atoms')
+show()
