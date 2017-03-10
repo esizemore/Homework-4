@@ -19,9 +19,13 @@ tmax=20000 #total time seconds
 
 dt=1 #time step
 
-T=45.6*60 #half life in seconds of Bi213
+TBi=45.6*60 #half life in seconds of Bi213
+TTl=2.2*60 #half life in seconds of Tl209
+TPb=3.3*60#half life in seconds of Pb209
 
-p= 1-2**(-dt/T) #probability that any particlar atom has decayed
+pBi= 1-2**(-dt/TBi) #probability that any particlar atom has decayed
+pTl= 1-2**(-dt/TTl)
+pPb= 1-2**(-dt/TPb)
 
 #list of plot points
 tpoints=arange(0.0, tmax,dt)
@@ -31,7 +35,7 @@ Pb209points = []
 Bi209points = []
 
 
-#main loop
+#main loop 
 for t in tpoints:
     Bi213points.append(Bi213)
     Tl209points.append(Tl209)
@@ -41,7 +45,7 @@ for t in tpoints:
     #calculate #of atoms that decay
     decay=0
     for i in range (Tl209):
-        if random()<p:
+        if random()<pTl:
             decay+=1
         Tl209 -= decay
         Pb209+= decay
